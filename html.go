@@ -151,8 +151,7 @@ function parseURL(url) {
     segments: a.pathname.replace(/^\//,'').split('/') 
     }; 
    }   
-   
-//存取localStorage中的数据
+  
 var store = {
     save(key,value){
         window.localStorage.setItem(key,JSON.stringify(value));
@@ -161,9 +160,6 @@ var store = {
      return JSON.parse(window.localStorage.getItem(key))||[];
     }
 }
-// list取出所有的值
-// var list = store.fetch("storeData");
-
 
 var vm = new Vue({
     el:".main",
@@ -174,16 +170,11 @@ var vm = new Vue({
         targetUrl: store.fetch("targetUrl"),
         proxyUrl: store.fetch("proxyUrl"),
         socks5: store.fetch("socks5"),
-        edtorTodos:'',//记录正在编辑的数据,
-        beforeTitle:"",//记录正在编辑的数据的title
-        visibility:"all"//通过这个属性值的变化对数据进行筛选
+        edtorTodos:'',
+        beforeTitle:"",
+        visibility:"all"
     },
     watch:{
-        //下面的这种方法是浅监控
-      /*list:function(){//监控list这个属性，当这个属性对应的值发生变化就会执行函数
-          store.save("storeData",this.list);
-      }*/
-      //下面的是深度监控
         list:{
             handler:function(){
                 store.save("storeData",this.list);
@@ -236,9 +227,7 @@ var vm = new Vue({
             this.domain = ""
             */
         },
-        enterFn(ev){//添加任务 
-            //向list中添加一项任务
-            //事件处理函数中的this指向的是当前这个根实例
+        enterFn(ev){
             if(this.todo==""){return;}
             this.list.push({
                 title:this.todo,
@@ -250,20 +239,19 @@ var vm = new Vue({
             
                 
         },
-        delFn(item){//删除任务
+        delFn(item){
             var index = this.list.indexOf(item);
             this.list.splice(index,1)
         },
-        edtorTodo(item){//编辑任务
-            //编辑任务的时候记录编辑之前的值
+        edtorTodo(item){
             this.beforeTitle = item.title;
             this.edtorTodos = item;
         },
-        edtoEnd(item){//编辑完成
+        edtoEnd(item){
             this.edtorTodos="";
             // this.cancelEdit = this.edtorTodos;
         },
-        cancelEdit(item){//取消编辑
+        cancelEdit(item){
             item.title = this.beforeTitle;
             this.beforeTitle = '';
             this.edtorTodos='';
@@ -272,11 +260,11 @@ var vm = new Vue({
             var xhr = new XMLHttpRequest();
             that = this;
             xhr.open("POST", url, true);
-            // 添加http头，发送信息至服务器时内容编码类型
+           
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  
             xhr.onreadystatechange = function() {
               if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
-                fn.call(this, xhr.responseText); // ****** 参数this 必须要
+                fn.call(this, xhr.responseText); 
               }
             };
             xhr.send(data);
@@ -298,7 +286,7 @@ var vm = new Vue({
         },
         restart(){
             alert("已经发送重启指令，稍后请手动刷新")
-            this.ajax("/restart/", "flag=restart", function(res){  // 路径要与服务器端一致，最后要加斜杠 不然会出现 post 301 到 get
+            this.ajax("/restart/", "flag=restart", function(res){ 
                 console.log(res)
             });
         }
@@ -319,7 +307,6 @@ var vm = new Vue({
             }).length
         },
         filterData(){
-            //过滤的时候有三种情况 all completed unCompleted
             var filter = {
                 all:function(list){
                     return list;
@@ -335,7 +322,6 @@ var vm = new Vue({
                     })
                 }
             }
-            //如果找到了过滤函数，就返回过滤后的数据，如果没有找到就返回所有的数据
             return filter[this.visibility]?filter[this.visibility](this.list):this.list;
         }
  
