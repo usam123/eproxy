@@ -15,8 +15,6 @@ const (
 	DefaultTimeout = 20 * time.Second
 )
 
-//go run proxy.go common.go handler.go html.go init.go Request.go ResponseHeader.go ResponseBody.go router.go
-
 func main() {
 	conf, target_url, socks5, err := Init()
 	if err != nil {
@@ -60,11 +58,3 @@ func main() {
 		go Handler(conn, client, u, conf)
 	}
 }
-
-/*
-	cd go/src/judas-master
-	SET CGO_ENABLED=0
-	SET GOOS=linux
-	SET GOARCH=amd64
-	go build judas.go proxy.go transformers.go a.go
-*/

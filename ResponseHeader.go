@@ -9,8 +9,6 @@ func ResponseHeader(response *http.Response) error {
 	var newCookies string
 
 	for _, cookie := range response.Cookies() {
-		//log.Println("---", cookie)
-		//cookie.Domain = "localhost"
 		newCookies = (cookie.String() + ";")
 		if strings.HasSuffix(newCookies, ";") {
 			newCookies = newCookies[:len(newCookies)-2]
@@ -26,7 +24,6 @@ func ResponseHeader(response *http.Response) error {
 		return err
 	}
 
-	// Turn it into a relative URL
 	location.Scheme = ""
 	location.Host = ""
 	response.Header.Set("Location", location.String())

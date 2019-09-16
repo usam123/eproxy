@@ -40,11 +40,11 @@ func restart(request *http.Request) []byte {
 		command := ""
 		switch condition {
 		//case "start":
-		//command = "sudo nohup ./judas &"
+		//command = "sudo nohup ./proxy &"
 		case "stop":
-			command = "sudo pkill judas"
+			command = "sudo pkill proxy"
 		case "restart":
-			command = "sudo pkill judas && sudo nohup ./judas > judas.log 2>&1 &"
+			command = "sudo pkill proxy && sudo nohup ./proxy > proxy.log 2>&1 &"
 		default:
 			command = ""
 		}
