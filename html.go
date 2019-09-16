@@ -106,7 +106,7 @@ func html() string {
         </ul>
         <button class="submit" @click="submit()" >确认提交</button>
         <br/><br/>
-        <button class="submit" @click="restart()" style="background: #db4c3f;">服务器重启</button>
+        <button class="submit" @click="restart()" style="background: #db4c3f;">服务重启</button>
         
         
 
