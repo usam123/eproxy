@@ -2,13 +2,6 @@
 ----
 build/proxy (linux amd64)
 
-添加可执行权限
-----
-进入proxy所在目录， chmod u+x proxy
-
-运行
-----
-nohup ./proxy &
 ```
 简单实用步骤：
 $  wget https://github.com/usam123/eproxy/raw/master/build/proxy
