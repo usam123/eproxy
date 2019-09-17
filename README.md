@@ -9,7 +9,6 @@ build/proxy (linux amd64) wget https://github.com/usam123/eproxy/raw/master/buil
 运行
 ----
 nohup ./proxy &
-----
 ```
 配置页面地址.
 http://yourIP_or_Domain/config.
